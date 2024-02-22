@@ -1,58 +1,81 @@
 <script>
-  import { onMount } from "svelte";
+  import { Router, Route, Link } from "svelte-routing";
+  import Button from "./Components/Button.svelte";
+  import Developers from "./Pages/DeveloperLanding.svelte";
+  // import Players from "./Pages/PlayerLanding.svelte";
 
-  onMount(() => {
-    document.body.style.backgroundColor = "#031526";
-  });
+  let title = "Board Game Developer";
+  let description = "Board game Developer Home Page";
+  let keywords = "Board Game, Developer, Player";
+  let author = "Alex B.";
 </script>
 
-<main>
-  <h1>Hello Player!</h1>
-  <button class="btn">Log In</button>
-</main>
+<svelte:head>
+  <title>{title}</title>
+  <meta charset="UTF-8" />
+  <meta name="description" content={description} />
+  <meta name="keywords" content={keywords} />
+  <meta name="author" content={author} />
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+</svelte:head>
+
+<Router>
+  <div id="vertical-container">
+    <header>
+      <h1>Hark!</h1>
+    </header>
+
+    <main>
+      <div><Button Name="Welcome Developers" route="/developers" /></div>
+      <div><Button Name="Welcome Players" /></div>
+    </main>
+  </div>
+
+  <footer>
+    <p>Copyright © 2024 {author}</p>
+  </footer>
+
+  <Route path="/developers" component={Developers} />
+</Router>
 
 <style>
+  :root {
+    background-color: #031526;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  #vertical-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+
+  header {
+    color: #e9d985;
+  }
+
+  header,
   main {
-    text-align: center;
-    padding: 1em;
-    max-width: 240px;
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
-  h1 {
-    color: #e9d985;
-    text-transform: uppercase;
-    font-size: 4em;
-    font-weight: 100;
+  main div {
+    padding: 1vh;
   }
 
-  .btn {
-    text-decoration: none;
-    border: 1px solid #bcd8c1;
-    background-color: #007991;
-    position: relative;
-    overflow: hidden;
-    border-radius: 3em;
-    padding: 0.5em 5em;
-    color: #e9d985;
-  }
-
-  .btn:hover {
-    box-shadow: 1px 1px 25px 10px #bcd8c140;
-  }
-
-  .btn:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
+  footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(120deg, transparent, #bcd8c1, transparent);
-    transition: all 650ms;
-  }
-
-  .btn:hover:before {
-    left: 100%;
+    text-align: center;
   }
 </style>
